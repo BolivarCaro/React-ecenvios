@@ -63,11 +63,11 @@ export const ecenviosSlice = createSlice({
         }, */
 
 
-        /* deleteShipmentById: ( state, action ) => {
+        deleteShipmentById: ( state, action ) => {
             state.active = null;
             state.shipments = state.shipments.filter( shipment => shipment.id !== action.payload );
-
-        }, */
+            console.log("Shipment removed from state:", action.payload);
+        },
     }
 });
 

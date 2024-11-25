@@ -1,10 +1,16 @@
-import { Link as InicioLink } from 'react-router-dom';
+import { Link as InicioLink, useLocation } from 'react-router-dom';
 import { LogoutOutlined, MenuOutlined } from "@mui/icons-material";
 import { AppBar, Grid, IconButton, Toolbar, Typography, Box, Link } from "@mui/material";
 import { useDispatch } from 'react-redux';
 import { startLogout } from '../../store/auth';
 
 export const NavBar = ({ drawerWidth = 200 }) => {
+
+    const location = useLocation();
+
+    if ( location.pathname === "/RemitenteForm" ){
+        return null
+    }
 
     const dispatch = useDispatch();
 

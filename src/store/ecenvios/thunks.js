@@ -1,6 +1,6 @@
-import { collection, doc, setDoc } from 'firebase/firestore/lite';
+import { collection, deleteDoc, doc, setDoc } from 'firebase/firestore/lite';
 import { FirebaseDB } from '../../firebase/config';
-import { addNewEmptyShipment, savingNewShipment, setActiveShipment, setSaving, setShipments, updateShipment } from './ecenviosSlice';
+import { addNewEmptyShipment, deleteShipmentById, savingNewShipment, setActiveShipment, setSaving, setShipments, updateShipment } from './ecenviosSlice';
 import { loadShipments } from '../../helpers/loadShipments';
 
 
@@ -29,7 +29,7 @@ export const startNewshipment = () => {
 
         const newDoc = doc( collection( FirebaseDB, `${ uid }/ecenvios/shipments` ) );
         await setDoc( newDoc, newShipment );
-        //console.log({newDoc, setDocResp});
+        //console.log({newDoc, setDoc});
         newShipment.id = newDoc.id;
 
 
@@ -86,15 +86,18 @@ export const startSaveShipment = () => {
         dispatch( setPhotosToActiveNote( photosUrls ) );
     }
 } */
-/* export const startDeletingNote = () => {
+export const startDeletingShipment = () => {
     return async( dispatch, getState ) => {
 
         const { uid } = getState().auth;
-        const { active:note } = getState().journal;
+        const { active:shipment } = getState().ecenvios;
 
-        const docRef = doc( FirebaseDb, `${ uid }/journal/notes/${ note.id }` );
+        console.log("UID:", uid);
+        console.log("Shipment:", shipment);
+
+        const docRef = doc( FirebaseDB, `${ uid }/ecenvios/shipments/${ shipment.id }` );
         await deleteDoc( docRef );
-        dispatch( deleteNoteById( note.id ) )
+        dispatch( deleteShipmentById( shipment.id ) )
 
     }
-} */
+}

@@ -7,8 +7,11 @@ import { startNewshipment } from '../../store/ecenvios/thunks';
 
 export const EcenviosPage = () => {
 
+    const dispatch = useDispatch();
+
     const navigate = useNavigate();
     const onClickNewShipment = () => {
+      dispatch(startNewshipment());
       navigate('/RemitenteForm')
     }
 
