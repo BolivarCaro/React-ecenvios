@@ -15,7 +15,7 @@ export const InicioPage = () => {
                                 height: 200,
                                 width: '100%'
                             }}
-                            image="/images/cajacarton.jpg"
+                            image="src/assets/images/cajacarton.jpg"
                             alt="cajas con material reciclado" 
                         />
                         <CardContent>
@@ -42,7 +42,7 @@ export const InicioPage = () => {
                                 height: 200, // Mantiene la altura de la imagen
                                 width: '100%' // La imagen ocupará el 100% del ancho de la CardMedia
                               }}
-                            image="/images/camion.jpg"
+                            image="src/assets/images/camion.jpg"
                             alt="Camiones equipados con gps"
                          />
                         <CardContent>
@@ -67,7 +67,7 @@ export const InicioPage = () => {
                                 height: 200,
                                 width: '100%'
                             }}
-                            image="/images/teamwork.jpg"
+                            image="src/assets/images/teamwork.jpg"
                         />
                         <CardContent>
                             <Typography variant="h5" component="div" gutterBottom>
@@ -91,7 +91,7 @@ export const InicioPage = () => {
                                 height: 200,
                                 width: '100%'
                             }}
-                            image="/images/customerhappy.jpg"
+                            image="src/assets/images/customerhappy.jpg"
                         />
                         <CardContent>
                             <Typography variant="h5" component="div" gutterBottom>

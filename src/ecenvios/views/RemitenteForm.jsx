@@ -81,6 +81,7 @@ export const RemitenteForm = () => {
 
   return (
     <Box
+      
       sx={{
         display: "flex",
         flexDirection: "column",
@@ -89,6 +90,7 @@ export const RemitenteForm = () => {
         margin: "auto",
         padding: 2,
         position: "relative",
+        mt: 15
       }}
     >
       {/* Mensaje Inicial con Animación */}
@@ -178,8 +180,8 @@ export const RemitenteForm = () => {
         disabled={!isSaved}
         sx={{
           mt: 2,
-          bgcolor: isSaved ? "success.main" : "grey.400",
-          "&:hover": { bgcolor: isSaved ? "success.dark" : "grey.500" },
+          bgcolor: isSaved ? "primary.main" : "grey.200",
+          "&:hover": { bgcolor: isSaved ? "primary.main" : "grey.500" },
         }}
       >
         Continuar

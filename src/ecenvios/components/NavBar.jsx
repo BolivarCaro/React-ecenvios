@@ -8,9 +8,9 @@ export const NavBar = ({ drawerWidth = 200 }) => {
 
     const location = useLocation();
 
-    if ( location.pathname === "/RemitenteForm" ){
+    /* if ( location.pathname === "/RemitenteForm" || location.pathname === "/DestinatarioForm" ){
         return null
-    }
+    } */
 
     const dispatch = useDispatch();
 

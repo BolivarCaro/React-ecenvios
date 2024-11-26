@@ -10,9 +10,18 @@ export const EcenviosPage = () => {
     const dispatch = useDispatch();
 
     const navigate = useNavigate();
+    
     const onClickNewShipment = () => {
       dispatch(startNewshipment());
       navigate('/RemitenteForm')
+    }
+
+    const onClickPreferencesApp = () => {
+      navigate('/PreferencesApp')
+    }
+
+    const onClickProfile = () => {
+      navigate('/Profile')
     }
 
 
@@ -25,13 +34,14 @@ export const EcenviosPage = () => {
         sx={{
           position: 'fixed',
           top: 0,
-          right: 20, // Separación del borde derecho
+          right: 20, 
           bottom: 0,
           display: 'flex',
           flexDirection: 'column',
-          justifyContent: 'center', // Centrado vertical
+          justifyContent: 'center', 
           alignItems: 'center',
           gap: 3,
+          
         }}
       >
         {/* Botón Solicitar Servicio */}
@@ -65,6 +75,7 @@ export const EcenviosPage = () => {
         <Tooltip title="Configuración" arrow placement="left">
           <IconButton
             size="medium"
+            onClick={onClickPreferencesApp}
             sx={{
               color: 'white',
               backgroundColor: 'secondary.main',
@@ -90,6 +101,7 @@ export const EcenviosPage = () => {
         {/* Botón Perfil */}
         <Tooltip title="Perfil" arrow placement="left">
           <IconButton
+            onClick={ onClickProfile }
             size="medium"
             sx={{
               color: 'white',

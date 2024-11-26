@@ -1,6 +1,6 @@
 import { Navigate, Route, Routes } from "react-router-dom";
 import { EcenviosPage } from "../page/EcenviosPage";
-import { FAGPage, InicioPage, WhyUs } from "../views/";
+import { FAGPage, InicioPage, PreferencesApp, Profile, WhyUs } from "../views/";
 import { RemitenteForm } from "../views/RemitenteForm";
 import { DestinatarioForm } from "../views/DestinatarioForm";
 import { ReviewData } from "../views/ReviewData";
@@ -16,6 +16,8 @@ export const EcenviosRoutes = () => {
         <Route path="RemitenteForm" element={ <RemitenteForm/> } />
         <Route path="DestinatarioForm" element={<DestinatarioForm />}/>
         <Route path="/review" element={<ReviewData />} />
+        <Route path="/PreferencesApp" element={ <PreferencesApp /> } />
+        <Route path="/Profile" element={ <Profile /> } />
       </Route>
       <Route path="/*" element={ <Navigate to="/" /> } />
     </Routes>
