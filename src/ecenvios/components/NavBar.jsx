@@ -8,9 +8,9 @@ export const NavBar = ({ drawerWidth = 200 }) => {
 
     const location = useLocation();
 
-    /* if ( location.pathname === "/RemitenteForm" || location.pathname === "/DestinatarioForm" ){
+    if ( location.pathname === "/RemitenteForm" || location.pathname === "/DestinatarioForm" ){
         return null
-    } */
+    }
 
     const dispatch = useDispatch();
 
@@ -40,7 +40,7 @@ export const NavBar = ({ drawerWidth = 200 }) => {
                 {/* Logo y texto "Ecoamigable" centrados en la parte superior */}
                 <Box display="flex" flexDirection="column" alignItems="center" sx={{ mb: 2 }}>
                     <img 
-                        src="/images/logo.png" 
+                        src="/src/assets/images/logo.png" 
                         alt="Logo Ecenvios" 
                         style={{ width: 120, height: 80 }} 
                         

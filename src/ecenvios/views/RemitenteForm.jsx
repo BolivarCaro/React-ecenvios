@@ -8,41 +8,42 @@ import { setActiveShipment } from "../../store/ecenvios/ecenviosSlice";
 import { DeleteOutline, SaveOutlined } from "@mui/icons-material";
 import Swal from "sweetalert2";
 import "sweetalert2/dist/sweetalert2.css";
+import { startNewConsignee } from "../../store/ecenvios/destinatario/thunks";
 
 export const RemitenteForm = () => {
 
-  const [showDialog, setShowDialog] = useState(true);   
+  const [showDialog, setShowDialog] = useState(true);
   const [isSaved, setIsSaved] = useState(false);
-  
+
 
   const dispatch = useDispatch();
   const { isSaving, active: shipment, messageSaved } = useSelector((state) => state.ecenvios);
 
-  const initialFormState = shipment || {
-    apellidos: "",
-    nombres: "",
-    documento_identificacion: "",
-    celular: "",
-    correo_electronico: "",
-    ciudad: "",
-    departamento: "",
-    direccion: "",
-    date: new Date().getTime(),
-  };
-
   const {
-    apellidos,
-    nombres,
-    documento_identificacion,
-    celular,
-    correo_electronico,
-    ciudad,
-    departamento,
-    direccion,
+    apellidos = '',
+    nombres = '',
+    documento_identificacion = '',
+    celular = '',
+    correo_electronico = '',
+    ciudad = '',
+    departamento = '',
+    direccion = '',
     onInputChange,
     formState,
+    onResetForm,
     date,
-  } = useForm(initialFormState);
+  } = useForm({
+    ...shipment,
+    apellidos: shipment?.apellidos || '',
+    nombres: shipment?.nombres || '',
+    documento_identificacion: shipment?.documento_identificacion || '',
+    celular: shipment?.celular || '',
+    correo_electronico: shipment?.correo_electronico || '',
+    ciudad: shipment?.ciudad || '',
+    departamento: shipment?.departamento || '',
+    direccion: shipment?.direccion || '',
+  });
+
 
   const dateString = useMemo(() => {
     const newDate = new Date(date);
@@ -52,6 +53,7 @@ export const RemitenteForm = () => {
   const navigate = useNavigate();
 
   const handleContinue = () => {
+    dispatch(startNewConsignee());
     navigate("/DestinatarioForm");
   };
 
@@ -81,7 +83,7 @@ export const RemitenteForm = () => {
 
   return (
     <Box
-      
+
       sx={{
         display: "flex",
         flexDirection: "column",
@@ -90,7 +92,7 @@ export const RemitenteForm = () => {
         margin: "auto",
         padding: 2,
         position: "relative",
-        mt: 15
+
       }}
     >
       {/* Mensaje Inicial con Animación */}

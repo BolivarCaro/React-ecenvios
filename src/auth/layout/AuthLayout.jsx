@@ -27,7 +27,7 @@ export const AuthLayout = ({ children, title = '' }) => {
             >
                 <CardMedia
                     component="img"
-                    image="/images/logo.png" // Ruta de la imagen
+                    image="/src/assets/images/logo.png" // Ruta de la imagen
                     alt="Logo"
                     sx={{
                         maxWidth: '80%', // Tamaño ajustable

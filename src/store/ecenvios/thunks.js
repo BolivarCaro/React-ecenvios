@@ -36,8 +36,7 @@ export const startNewshipment = () => {
         // dispatch
         dispatch( addNewEmptyShipment( newShipment ) );
         dispatch( setActiveShipment( newShipment ) );
-        //dispatch ( newNote )
-        //dispatch( activarNote )
+        
         
     }
 }
