@@ -1,6 +1,6 @@
 import { collection, deleteDoc, doc, setDoc } from 'firebase/firestore/lite';
 import { FirebaseDB } from '../../firebase/config';
-import { addNewEmptyShipment, deleteShipmentById, savingNewShipment, setActiveShipment, setPhotosToActiveNote, setSaving, setShipments, updateShipment } from './ecenviosSlice';
+import { addNewEmptyShipment, deleteShipmentById, savingNewShipment, setActiveShipment, setProfileImage, setSaving, setShipments, updateShipment } from './ecenviosSlice';
 import { loadShipments } from '../../helpers/loadShipments';
 import { fileUpload } from '../../helpers/fileUpload';
 
@@ -85,7 +85,7 @@ export const startUploadingFiles = ( files = [] ) => {
         }
 
         const photosUrls = await Promise.all( fileUploadPromises );
-        //dispatch( setPhotosToActiveNote( photosUrls ) );
+        dispatch( setProfileImage( photosUrls[0] ) );
     }
 }
 export const startDeletingShipment = () => {

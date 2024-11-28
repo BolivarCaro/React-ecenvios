@@ -10,6 +10,9 @@ export const Profile = () => {
 
     const fileInputRef = useRef();
 
+    const { profileImage, isSaving } = useSelector( state => state.ecenvios );
+    const { displayName } = useSelector(state => state.auth);
+
     const [profile, setProfile] = useState({
         nombres: "",
         email: "",
@@ -17,7 +20,7 @@ export const Profile = () => {
         confirmPassword: "",
     });
 
-    const { active:consignee, messageSaved, isSaving } = useSelector(  state => state.destinatario);
+    
 
      const onFileInputChange = ({ target }) => {
         if( target.files === 0 ) return;
@@ -42,9 +45,9 @@ export const Profile = () => {
             }}
         >
             <Typography variant="h4" textAlign="center">
-                Mi Perfil
+                {displayName}
             </Typography>
-            <Typography variant="h4" textAlign="center">
+            <Typography variant="h6" textAlign="center">
                 Foto de Perfil
                 
                 <Box
@@ -71,7 +74,15 @@ export const Profile = () => {
                     >
                         <UploadFileOutlined />
                     </IconButton>
-
+                    {profileImage && (<CardMedia 
+                        component="img" 
+                        sx={{ 
+                            objectFit: 'cover', height: 200, width: 200, borderRadius: '50%'
+                         }} 
+                         image={profileImage} alt="Foto de perfil"
+                         />
+                         
+                        )}
                 </Box>
             </Typography>
             <Divider />

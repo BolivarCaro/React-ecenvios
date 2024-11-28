@@ -5,6 +5,7 @@ export const ecenviosSlice = createSlice({
     initialState: {
         isSaving: false,
         messageSaved: '',
+        profileImage: '',
         shipments: [],
         active: null
     },
@@ -49,10 +50,10 @@ export const ecenviosSlice = createSlice({
             state.messageSaved = `${ action.payload.nombres }, Datos actualizados correctamente`
 
         },
-        /* setPhotosToActiveNote: ( state, action ) => {
-            state.active.imageUrls = [ ...state.active.imageUrls, ...action.payload ];
+        setProfileImage: ( state, action ) => {
+            state.profileImage = action.payload;
             state.isSaving = false;
-        },  */ 
+        },  
 
         clearShipmentsLogout: ( state ) => {
             state.isSaving = false;
@@ -81,6 +82,6 @@ export const {
     updateShipment,
     deleteShipmentById,
     savingNewShipment,
-    setPhotosToActiveNote,
+    setProfileImage,
     clearShipmentsLogout,
  } = ecenviosSlice.actions;

@@ -5,12 +5,17 @@ import { useNavigate } from "react-router-dom";
 import { setActiveShipment } from "../../store/ecenvios/ecenviosSlice";
 import { setActiveConsignee } from "../../store/ecenvios/destinatario/remitenteSlice";
 import { useForm } from "../../hooks/useForm";
+import { startDeletingShipment, startSaveShipment } from "../../store/ecenvios/thunks";
+import { startDeletingConsignee, startSaveConsignees } from "../../store/ecenvios/destinatario/thunks";
+import Swal from "sweetalert2";
+import { DeleteOutline, SaveAltOutlined, SaveOutlined } from "@mui/icons-material";
 
 export const ReviewData = () => {
     const navigate = useNavigate();
     const dispatch = useDispatch();
     const { active: shipment } = useSelector(state => state.ecenvios);
     const { active: consignee } = useSelector(state => state.destinatario);
+    const { isSaving } = useSelector(state => state.ecenvios);
 
     const {
         apellidos,
@@ -37,6 +42,29 @@ export const ReviewData = () => {
         onInputChange: onConsigneeInputChange,
         formState: consigneeForm
     } = useForm(consignee);
+
+    const handleSaveShipment = () => {
+        dispatch(setActiveShipment(shipmentForm));
+        dispatch(startSaveShipment());
+    }
+
+    const handleSaveConsignee = () => {
+        dispatch(setActiveConsignee(consigneeForm));
+        dispatch(startSaveConsignees());
+    }
+
+    const handleDeleteShipment = () => {
+        dispatch(startDeletingShipment());
+        navigate("/")
+        Swal.fire("Remitente eliminado", "El remitente ha sido eliminado exitosamente", "success")
+    }
+
+    const handleDeleteConsignee = () => {
+        dispatch(startDeletingConsignee());
+        navigate("/")
+        Swal.fire("Destinatario eliminado", "El destinatario ha sido eliminado exitosamente", "success")
+    }
+
 
     const handleContinue = () => {
         dispatch(setActiveShipment(shipmentForm));
@@ -70,7 +98,39 @@ export const ReviewData = () => {
                     onChange={onInputChange}
                     sx={{ mb: 2 }}
                 />
+
             ))}
+            <Box
+                sx={{ display: "flex", justifyContent: "space-between", gap: 2 }}
+            >
+                <Button
+                    variant="contained"
+                    color="primary"
+                    size="large"
+                    onClick={handleSaveShipment}
+                    disabled={isSaving}
+                    sx={{ mt: 2 }}
+                    startIcon={<SaveOutlined/>}
+                >
+                    Guardar Remitente
+
+                </Button>
+
+                <Button
+                    variant="contained"
+                    color="error"
+                    size="large"
+                    onClick={handleDeleteShipment}
+                    disabled={isSaving}
+                    sx={{ mt: 2 }}
+                    startIcon={<DeleteOutline/>}
+                >
+                    Eliminar Remitente
+
+                </Button>
+            </Box>
+
+
 
             <Typography variant="h6">Datos del Destinatario</Typography>
             {[
@@ -94,12 +154,42 @@ export const ReviewData = () => {
                     sx={{ mb: 2 }}
                 />
             ))}
+            <Box
+                sx={{ display: "flex", justifyContent: "space-between", gap: 2 }}
+            >
+
+                <Button
+                    variant="contained"
+                    color="primary"
+                    size="large"
+                    onClick={handleSaveConsignee}
+                    disabled={isSaving}
+                    sx={{ mt: 2 }}
+                    startIcon={<SaveOutlined/>}
+                >
+                    Guardar Destinatario
+                </Button>
+                <Button
+                    variant="contained"
+                    color="error"
+                    size="large"
+                    onClick={handleDeleteConsignee}
+                    disabled={isSaving}
+                    sx={{ mt: 2 }}
+                    startIcon={<DeleteOutline/>}
+                >
+                    Eliminar Destinatario
+                </Button>
+
+            </Box>
+
 
             <Button
                 variant="contained"
                 color="primary"
                 size="large"
                 onClick={handleContinue}
+                disabled={isSaving}
                 sx={{ mt: 2 }}
             >
                 Continuar

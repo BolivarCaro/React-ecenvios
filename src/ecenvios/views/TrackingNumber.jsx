@@ -13,7 +13,7 @@ export const TrackingNumber = () => {
     };
 
     const handleFinish = () => {
-        navigate("/Finish");
+        navigate("/InicioPage");
     };
 
     return (
