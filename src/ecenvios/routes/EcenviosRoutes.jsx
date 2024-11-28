@@ -4,6 +4,7 @@ import { FAGPage, InicioPage, PreferencesApp, Profile, WhyUs } from "../views/";
 import { RemitenteForm } from "../views/RemitenteForm";
 import { DestinatarioForm } from "../views/DestinatarioForm";
 import { ReviewData } from "../views/ReviewData";
+import { TrackingNumber } from "../views/TrackingNumber";
 
 export const EcenviosRoutes = () => {
   return (
@@ -15,7 +16,8 @@ export const EcenviosRoutes = () => {
         <Route path="/" element={ <Navigate to="InicioPage" /> } />
         <Route path="RemitenteForm" element={ <RemitenteForm/> } />
         <Route path="DestinatarioForm" element={<DestinatarioForm />}/>
-        <Route path="/review" element={<ReviewData />} />
+        <Route path="/ReviewData" element={<ReviewData />} />
+        <Route path="/TrackingNumber" element={<TrackingNumber />} />
         <Route path="/PreferencesApp" element={ <PreferencesApp /> } />
         <Route path="/Profile" element={ <Profile /> } />
       </Route>

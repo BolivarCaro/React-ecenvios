@@ -46,21 +46,21 @@ export const ecenviosSlice = createSlice({
 
             } );
 
-            state.messageSaved = `${ action.payload.nombres }, Datos ctualizados correctamente`
+            state.messageSaved = `${ action.payload.nombres }, Datos actualizados correctamente`
 
         },
         /* setPhotosToActiveNote: ( state, action ) => {
             state.active.imageUrls = [ ...state.active.imageUrls, ...action.payload ];
             state.isSaving = false;
-        }, */
+        },  */ 
 
-        /* clearShipmentsLogout: ( state ) => {
+        clearShipmentsLogout: ( state ) => {
             state.isSaving = false;
             state.messageSaved = '';
             state.notes = [];
             state.active = null;
 
-        }, */
+        },
 
 
         deleteShipmentById: ( state, action ) => {

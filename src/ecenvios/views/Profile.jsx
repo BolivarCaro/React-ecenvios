@@ -1,7 +1,15 @@
-import { Box, Typography, TextField, Button, Divider } from "@mui/material";
-import { useState } from "react";
+import { UploadFileOutlined } from "@mui/icons-material";
+import { Box, Typography, TextField, Button, Divider, CardMedia, Input, IconButton } from "@mui/material";
+import { useRef, useState } from "react";
+import { useDispatch, useSelector } from "react-redux";
+import { startUploadingFiles } from "../../store/ecenvios/thunks";
 
 export const Profile = () => {
+
+    const dispatch = useDispatch();
+
+    const fileInputRef = useRef();
+
     const [profile, setProfile] = useState({
         nombres: "",
         email: "",
@@ -9,22 +17,17 @@ export const Profile = () => {
         confirmPassword: "",
     });
 
-    /* const handleInputChange = (e) => {
-        setProfile({
-            ...profile,
-            [e.target.name]: e.target.value,
-        });
+    const { active:consignee, messageSaved, isSaving } = useSelector(  state => state.destinatario);
+
+     const onFileInputChange = ({ target }) => {
+        if( target.files === 0 ) return;
+
+        console.log('subiendo archivos')
+        dispatch( startUploadingFiles( target.files ) )
+        
     };
 
-    const handleSave = () => {
-        if (profile.password !== profile.confirmPassword) {
-            alert("Las contraseñas no coinciden");
-            return;
-        }
-
-        console.log("Perfil actualizado:", profile);
-        alert("Perfil actualizado correctamente.");
-    }; */
+   
 
     return (
         <Box
@@ -40,6 +43,36 @@ export const Profile = () => {
         >
             <Typography variant="h4" textAlign="center">
                 Mi Perfil
+            </Typography>
+            <Typography variant="h4" textAlign="center">
+                Foto de Perfil
+                
+                <Box
+
+                    sx={{ 
+                        display: "flex",
+                        flexDirection: "column",
+                        alignItems: "center",
+                        gap: 2,
+
+                     }}
+                >
+                    <input
+                        type="file"
+                        onChange={ onFileInputChange }
+                        ref={ fileInputRef }
+                        style={{ display: 'none' }}
+                    
+                    />
+                    <IconButton
+                        color="primary"
+                        disabled={ isSaving }
+                        onClick={ () => fileInputRef.current.click() }
+                    >
+                        <UploadFileOutlined />
+                    </IconButton>
+
+                </Box>
             </Typography>
             <Divider />
 

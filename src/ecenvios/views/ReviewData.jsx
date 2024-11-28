@@ -1,48 +1,109 @@
-// ReviewData.js
-import { Box, Button, Typography } from "@mui/material";
-import { useNavigate, useLocation } from "react-router-dom";
+import React from "react";
+import { Box, Button, Typography, Divider, TextField } from "@mui/material";
+import { useSelector, useDispatch } from "react-redux";
+import { useNavigate } from "react-router-dom";
+import { setActiveShipment } from "../../store/ecenvios/ecenviosSlice";
+import { setActiveConsignee } from "../../store/ecenvios/destinatario/remitenteSlice";
+import { useForm } from "../../hooks/useForm";
 
 export const ReviewData = () => {
     const navigate = useNavigate();
-    const location = useLocation();
-    const { remitenteData, destinatarioData } = location.state;
+    const dispatch = useDispatch();
+    const { active: shipment } = useSelector(state => state.ecenvios);
+    const { active: consignee } = useSelector(state => state.destinatario);
 
-    const handleConfirm = () => {
-        // Aquí podrías manejar el envío de datos o cualquier otra lógica antes de mostrar el número de guía
-        navigate("/tracking", { state: { remitenteData, destinatarioData } });
+    const {
+        apellidos,
+        nombres,
+        documento_identificacion,
+        celular,
+        correo_electronico,
+        ciudad,
+        departamento,
+        direccion,
+        onInputChange,
+        formState: shipmentForm
+    } = useForm(shipment);
+
+    const {
+        apellidos: consigneeApellidos,
+        nombres: consigneeNombres,
+        documento_identificacion: consigneeDocumentoIdentificacion,
+        celular: consigneeCelular,
+        correo_electronico: consigneeCorreoElectronico,
+        ciudad: consigneeCiudad,
+        departamento: consigneeDepartamento,
+        direccion: consigneeDireccion,
+        onInputChange: onConsigneeInputChange,
+        formState: consigneeForm
+    } = useForm(consignee);
+
+    const handleContinue = () => {
+        dispatch(setActiveShipment(shipmentForm));
+        dispatch(setActiveConsignee(consigneeForm));
+        navigate("/TrackingNumber");
     };
 
     return (
-        <Box sx={{ maxWidth: 600, margin: 'auto', padding: 2, mt: 15 }}>
-            <Typography variant="h4" textAlign="center" sx={{ mb: 2 }}>
-                Confirmar Datos
-            </Typography>
+        <Box sx={{ display: "flex", flexDirection: "column", gap: 2, maxWidth: 600, margin: "auto", padding: 3, mt: 5 }}>
+            <Typography variant="h4" textAlign="center">Verificación de Datos</Typography>
+            <Divider />
 
             <Typography variant="h6">Datos del Remitente</Typography>
-            {Object.entries(remitenteData).map(([key, value]) => (
-                <Typography key={key} variant="body1">
-                    {`${key.charAt(0).toUpperCase() + key.slice(1)}: ${value}`}
-                </Typography>
+            {[
+                { label: "Nombres", value: nombres, name: "nombres" },
+                { label: "Apellidos", value: apellidos, name: "apellidos" },
+                { label: "Documento de Identificación", value: documento_identificacion, name: "documento_identificacion" },
+                { label: "Celular", value: celular, name: "celular" },
+                { label: "Correo Electrónico", value: correo_electronico, name: "correo_electronico" },
+                { label: "Ciudad", value: ciudad, name: "ciudad" },
+                { label: "Departamento", value: departamento, name: "departamento" },
+                { label: "Dirección", value: direccion, name: "direccion" },
+            ].map(({ label, value, name }) => (
+                <TextField
+                    key={name}
+                    label={label}
+                    variant="outlined"
+                    fullWidth
+                    name={name}
+                    value={value}
+                    onChange={onInputChange}
+                    sx={{ mb: 2 }}
+                />
             ))}
 
-            <Typography variant="h6" sx={{ mt: 2 }}>Datos del Destinatario</Typography>
-            {Object.entries(destinatarioData).map(([key, value]) => (
-                <Typography key={key} variant="body1">
-                    {`${key.charAt(0).toUpperCase() + key.slice(1)}: ${value}`}
-                </Typography>
+            <Typography variant="h6">Datos del Destinatario</Typography>
+            {[
+                { label: "Nombres", value: consigneeNombres, name: "nombres" },
+                { label: "Apellidos", value: consigneeApellidos, name: "apellidos" },
+                { label: "Documento de Identificación", value: consigneeDocumentoIdentificacion, name: "documento_identificacion" },
+                { label: "Celular", value: consigneeCelular, name: "celular" },
+                { label: "Correo Electrónico", value: consigneeCorreoElectronico, name: "correo_electronico" },
+                { label: "Ciudad", value: consigneeCiudad, name: "ciudad" },
+                { label: "Departamento", value: consigneeDepartamento, name: "departamento" },
+                { label: "Dirección", value: consigneeDireccion, name: "direccion" },
+            ].map(({ label, value, name }) => (
+                <TextField
+                    key={name}
+                    label={label}
+                    variant="outlined"
+                    fullWidth
+                    name={name}
+                    value={value}
+                    onChange={onConsigneeInputChange}
+                    sx={{ mb: 2 }}
+                />
             ))}
 
-            <Box
-                sx={{
-                    display: 'flex',
-                    justifyContent: 'center',
-                    mt: 3
-                }}
+            <Button
+                variant="contained"
+                color="primary"
+                size="large"
+                onClick={handleContinue}
+                sx={{ mt: 2 }}
             >
-                <Button variant="contained" color="primary" size="large" onClick={handleConfirm}>
-                    Confirmar y Generar Número de Guía
-                </Button>
-            </Box>
+                Continuar
+            </Button>
         </Box>
     );
 };

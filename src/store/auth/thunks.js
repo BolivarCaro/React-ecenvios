@@ -1,4 +1,5 @@
 import { loginWithEmailPassword, logoutFirebase, registerUserWithEmailPassword, singInWithGoogle } from "../../firebase/providers";
+import { clearShipmentsLogout } from "../ecenvios/ecenviosSlice";
 import { checkingCredentials, login, logout } from "./authSlice";
 
 
@@ -56,7 +57,7 @@ export const startLogout = () => {
     return async( dispatch ) => {
         
         await logoutFirebase();
-        //dispatch( clearNotesLogout() );
+        dispatch( clearShipmentsLogout() );
 
         dispatch( logout() );
 
